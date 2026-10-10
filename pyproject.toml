@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling>=1.18"]
+build-backend = "hatchling.build"
+
+[project]
+name = "oi-memory"
+version = "1.0.0"
+description = "Memory subsystem for Oi: retrieval, extraction and pluggable storage for agent long-term memory."
+license = { file = "LICENSE" }
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["click>=8.0"]
+
+keywords = ["oi", "agent", "llm"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries :: Application Frameworks",
+]
+
+[project.urls]
+Homepage = "https://github.com/akankofik-dev/oi-memory"
+Source = "https://github.com/akankofik-dev/oi-memory"
+Issues = "https://github.com/akankofik-dev/oi-memory/issues"
+
+[project.optional-dependencies]
+chroma = ["chromadb>=0.4"]
+cli = ["click>=8.0"]
+dashboard = ["click>=8.0", "fastapi>=0.110", "uvicorn[standard]>=0.29"]
+embeddings = ["sentence-transformers>=2.2"]
+langgraph = ["langchain-core>=1.0", "langgraph-checkpoint>=2.0", "langgraph-checkpoint-sqlite>=2.0"]
+langgraph-postgres = [
+    "langchain-core>=1.0",
+    "langgraph-checkpoint>=2.0",
+    "langgraph-checkpoint-postgres>=2.0",
+    "psycopg[binary]>=3.1",
+]
+postgres = ["psycopg[binary]>=3.1"]
+qdrant = ["qdrant-client>=1.7"]
+
+[project.scripts]
+oi-memory = "oi_memory.adapters.cli:main"
+oimemory-bridge = "oi_memory.adapters.bridge.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["oi_memory"]
+
+[tool.hatch.build.targets.sdist]
+include = ["oi_memory"]
